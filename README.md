@@ -12,7 +12,7 @@ The second host is a vault server (vault1 - in dev mode) minimally configured wi
 
 Conceptually, certificates for consumers may be generated (in vault) and distributed via existing (& secure :smile:) mechanisms.
 
-Consumer clients (devices, application, users) will need to present certificates when attempting to establish `https` connection (ie port 443) to the local DNS entry (default: ``) of the load-balancer; the common certificate chain including CA-root and a certificate that's currently valid (eg not expired or on CRL) permits a connection and a response would then be rendered (HTTP-200 & text).
+Consumer clients (devices, application, users) will need to present certificates when attempting to establish `https` connection (ie port 443) to the local DNS entry (default: `subdomain.tld.com.local`) of the load-balancer; the common certificate chain including CA-root and a certificate that's currently valid (eg not expired or on CRL) permits a connection and a response would then be rendered (HTTP-200 & text).
 
 A depiction below shows the two (2) hosts; consumers approach the load-balancer, which screens against any unauthorised access inbound to its backend servers without a valid certificates.
 
