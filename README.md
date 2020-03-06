@@ -111,7 +111,7 @@ vagrant box remove -f debian/buster64 --provider virtualbox ; # ... delete box i
 ## Client Certificate Usage
 Refer to your browsers settings for importing the CA Root Certificate (firefox url: `about:preferences#privacy`, chrome url: `chrome://settings/privacy`).
 
-Be user to set the appropriate trust level on the CA Root Certificate that may be on a separate OS level dialogue (eg: on :apple_red: macOS **Keychain** Trust levels). 
+Be user to set the appropriate trust level on the CA Root Certificate that may be on a separate OS level dialogue (eg: on :apple: macOS **Keychain** Trust levels). 
 
 Consumer Certificates in pkcs12 format can be created from generated certificates by vault and the helper script `vcert.sh` can do the certificate request and conversion.
 
