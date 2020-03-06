@@ -74,7 +74,7 @@ vagrant up --provider virtualbox ;
 vagrant global-status ; # should show running nodes
 # id       name    provider   state   directory
 # -------------------------------------------------------------------------------
-# 3066b4c  haproxy virtualbox running /home/auser/hashicorp.vagranmv t_vault-pki_haproxy
+# 3066b4c  haproxy virtualbox running /home/auser/hashicorp.vagrant_vault-pki_haproxy
 # df5c909  vault1  virtualbox running /home/auser/hashicorp.vagrant_vault-pki_haproxy
 
 if ! grep 'subdomain.tld.com.local' /etc/hosts ; \
