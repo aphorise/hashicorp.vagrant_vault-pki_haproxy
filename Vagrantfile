@@ -3,8 +3,10 @@
 sVUSER='vagrant'  # // vagrant user
 sHOME="/home/#{sVUSER}"  # // home path for vagrant user
 sNET='en0: Wi-Fi (Wireless)'  # // network adaptor to use for bridged mode
-sIP_CLASS_D='192.168.10'  # // NETWORK CIDR for Consul configs.
-sIP="#{sIP_CLASS_D}.200"
+sIP_CLASS_D='192.168.10'  # // NETWORK CIDR for configs.
+sIP_D_BASE=200  # // fist A class host IP
+sIP="#{sIP_CLASS_D}.#{sIP_D_BASE}"  # // RESULTING 1st node: 192.168.10.200 & subsequent 202, 203, etc.
+
 sCERT_BUNDLE='ca_intermediate.pem'
 
 Vagrant.configure("2") do |config|
@@ -34,7 +36,7 @@ Vagrant.configure("2") do |config|
     if iX == 2 then
       config.vm.define vm_name="vault#{iX-1}" do |vault_node|
         vault_node.vm.hostname = vm_name
-        vault_node.vm.network "public_network", bridge: "#{sNET}"
+        vault_node.vm.network "public_network", bridge: "#{sNET}", ip: "#{sIP_CLASS_D}.#{iX+sIP_D_BASE}"
         # // ssh setup default identity files & copy file from haproxy host (bundle certificate).
         vault_node.vm.provision "file", source: ".vagrant/machines/haproxy/virtualbox/private_key", destination: "~/.ssh/id_rsa2"
         vault_node.vm.provision "shell", inline: 'sed -i "s/#.*IdentityFile ~\/\.ssh\/id_rsa/    IdentityFile ~\/\.ssh\/id_rsa/g" /etc/ssh/ssh_config'
