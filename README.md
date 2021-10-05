@@ -78,7 +78,7 @@ vagrant global-status ; # should show running nodes
 # df5c909  vault1  virtualbox running /home/auser/hashicorp.vagrant_vault-pki_haproxy
 
 if ! grep 'subdomain.tld.com.local' /etc/hosts ; \
-then printf '192.168.10.200 subdomain.tld.com.local\n' | sudo tee -a /etc/hosts ; fi ;
+then printf '192.168.178.200 subdomain.tld.com.local\n' | sudo tee -a /etc/hosts ; fi ;
 # // On your local host set /etc/hosts entry for subdomain.tld.com.local
 curl -v https://subdomain.tld.com.local ; # // should fail
 # // ...
@@ -95,9 +95,11 @@ vagrant@vault1:~$ \
 
 
 # // back on localhost:
-rsync -va -e "ssh -p2200 -i \"$(pwd)/.vagrant/machines/vault1/virtualbox/private_key\"" vagrant@127.0.0.1:~/sit1*.p* . ;
+rsync -va -e "ssh -p2200 -i \"$(pwd)/.vagrant/machines/vault1/virtualbox/private_key\"" vagrant@127.0.0.1:~/allowed*.pem . ;
+CERT_CA="allowed1.tld.com.local_cachain.pem" ;
+CERT_VAULT="allowed1.tld.com.local_bundle.pem" ;
 # // ... repeat curl again providing ca & cert.
-curl -v --cacert sit1.tld.com.local_cachain.pem --cert sit1.tld.com.local_bundle.pem https://subdomain.tld.com.local/ ;
+curl -v --cacert ${CERT_CA} --cert ${CERT_VAULT} https://subdomain.tld.com.local/ ;
 # < HTTP/1.0 200 OK
 # // ... repeat with Browser
 # // TTL 5 minutes so your access should not work after.
